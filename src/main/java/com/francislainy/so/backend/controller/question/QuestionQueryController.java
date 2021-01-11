@@ -1,4 +1,4 @@
-package com.francislainy.so.backend.controller;
+package com.francislainy.so.backend.controller.question;
 
 import com.francislainy.so.backend.dto.QuestionQueryDto;
 import com.francislainy.so.backend.service.QuestionQueryService;

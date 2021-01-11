@@ -25,15 +25,52 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setId(UUID.randomUUID());
         questionEntity.setTitle(questionCreateDto.getTitle());
+        questionEntity.setDescription(questionCreateDto.getDescription());
+        questionEntity.setTotalVotes(0);
+        questionEntity.setTotalUpVotes(0);
+        questionEntity.setTotalDownVotes(0);
+        questionEntity.setDescription(questionCreateDto.getDescription());
 
-        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("Europe/Dublin")) ;
+        ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("Europe/Dublin"));
         Timestamp timestamp = Timestamp.valueOf(zdt.toLocalDateTime());
 
         questionEntity.setCreationDate(timestamp.getTime());
 
         questionRepository.save(questionEntity);
 
-        return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getCreationDate());
+        return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getCreationDate(), questionEntity.getDescription());
 
     }
+
+
+    @Override
+    public QuestionCreateDto voteQuestion(UUID questionId, Integer voteType) {
+
+        if (questionRepository.findById(questionId).isPresent()) {
+            QuestionEntity questionEntity = questionRepository.findById(questionId).get();
+
+            switch (voteType) {
+                case 0:
+                    questionEntity.setTotalDownVotes(questionEntity.getTotalDownVotes());
+                    questionEntity.setTotalUpVotes(questionEntity.getTotalUpVotes());
+                    break;
+                case 1:
+                    questionEntity.setTotalDownVotes(questionEntity.getTotalDownVotes() + 1);
+                    questionEntity.setTotalUpVotes(questionEntity.getTotalUpVotes());
+                    break;
+                case 2:
+                    questionEntity.setTotalDownVotes(questionEntity.getTotalDownVotes());
+                    questionEntity.setTotalUpVotes(questionEntity.getTotalUpVotes() + 1);
+                    break;
+            }
+
+            questionEntity.setTotalVotes(questionEntity.getTotalUpVotes() - questionEntity.getTotalDownVotes());
+
+            return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getTotalDownVotes(), questionEntity.getTotalUpVotes(), questionEntity.getTotalVotes());
+
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -13,6 +13,9 @@ public class QuestionQueryDto {
     private String title;
     private Long creationDate;
     private Long lastUpdated;
+    private Integer totalDownVotes;
+    private Integer totalUpVotes;
+    private Integer totalVotes;
 
 
     public QuestionQueryDto(UUID id, String title, Long creationDate) {
@@ -20,4 +23,21 @@ public class QuestionQueryDto {
         this.title = title;
         this.creationDate = creationDate;
     }
+
+    public QuestionQueryDto(UUID id, String title, Integer totalDownVotes, Integer totalUpVotes, Integer totalVotes) {
+        this.id = id;
+        this.title = title;
+        this.totalDownVotes = totalDownVotes;
+        this.totalUpVotes = totalUpVotes;
+        this.totalVotes = totalVotes;
+    }
+
+    public QuestionQueryDto(UUID id, String title, Long creationDate, Long lastUpdated) {
+
+        this.id = id;
+        this.title = title;
+        this.creationDate = creationDate;
+        this.lastUpdated = lastUpdated;
+    }
+
 }

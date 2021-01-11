@@ -1,5 +1,6 @@
 package com.francislainy.so.backend.controller;
 
+import com.francislainy.so.backend.controller.question.QuestionQueryController;
 import com.francislainy.so.backend.dto.QuestionQueryDto;
 import com.francislainy.so.backend.service.QuestionQueryService;
 import org.junit.Test;
