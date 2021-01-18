@@ -37,7 +37,7 @@ public class QuestionCommandControllerTest {
     public void postOneQuestion() throws Exception {
 
         RequestBuilder request = MockMvcRequestBuilders
-                .post("/api/so/question")
+                .post("/api/so/questions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "            \"title\": \"myTitle\",\n" +
@@ -67,18 +67,19 @@ public class QuestionCommandControllerTest {
     public void postOneQuestionJson() throws Exception {
 
         QuestionCreateDto questionPostBodyParams = new QuestionCreateDto(
-                "myTitle", 1606106807178L);
+                "myTitle", 1606106807178L,  "my post",
+                UUID.fromString("85514581-cc50-4490-8612-6a288842ff64"));
 
         String jsonStringBodyParams = asJsonString(questionPostBodyParams);
 
         RequestBuilder request = MockMvcRequestBuilders
-                .post("/api/so/question")
+                .post("/api/so/questions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonStringBodyParams)
                 .accept(MediaType.APPLICATION_JSON);
 
         QuestionCreateDto questionResponse = new QuestionCreateDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
-                "myTitle", 1606106807178L);
+                "myTitle", 1606106807178L, "desc", UUID.fromString("e88d7cd3-3e9c-4113-a19a-f3907bf8b6d0"));
 
         String jsonStringResponse = asJsonString(questionResponse);
 

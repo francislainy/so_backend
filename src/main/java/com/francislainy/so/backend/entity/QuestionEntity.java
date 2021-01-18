@@ -39,4 +39,8 @@ public class QuestionEntity {
     @Column(name="total_downvotes", nullable = true)
     private Integer totalDownVotes;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
+
 }

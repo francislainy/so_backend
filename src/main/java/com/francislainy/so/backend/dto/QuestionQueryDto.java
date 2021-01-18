@@ -17,7 +17,6 @@ public class QuestionQueryDto {
     private Integer totalUpVotes;
     private Integer totalVotes;
 
-
     public QuestionQueryDto(UUID id, String title, Long creationDate) {
         this.id = id;
         this.title = title;

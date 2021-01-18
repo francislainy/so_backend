@@ -37,7 +37,7 @@ public class QuestionQueryControllerTest {
     public void getQuestionListNoItem() throws Exception {
 
         RequestBuilder request = MockMvcRequestBuilders
-                .get("/api/so/question")
+                .get("/api/so/questions")
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mvc.perform(request)
@@ -52,7 +52,7 @@ public class QuestionQueryControllerTest {
     public void getQuestionListOneItem() throws Exception {
 
         RequestBuilder request = MockMvcRequestBuilders
-                .get("/api/so/question")
+                .get("/api/so/questions")
                 .accept(MediaType.APPLICATION_JSON);
 
         QuestionQueryDto question = new QuestionQueryDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
@@ -85,7 +85,7 @@ public class QuestionQueryControllerTest {
     public void getQuestionListThreeItems() throws Exception {
 
         RequestBuilder request = MockMvcRequestBuilders
-                .get("/api/so/question")
+                .get("/api/so/questions")
                 .accept(MediaType.APPLICATION_JSON);
 
         QuestionQueryDto question1 = new QuestionQueryDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),

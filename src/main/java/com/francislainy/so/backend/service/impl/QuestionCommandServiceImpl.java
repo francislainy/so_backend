@@ -1,9 +1,10 @@
 package com.francislainy.so.backend.service.impl;
 
-
 import com.francislainy.so.backend.dto.QuestionCreateDto;
 import com.francislainy.so.backend.entity.QuestionEntity;
+import com.francislainy.so.backend.entity.UserEntity;
 import com.francislainy.so.backend.repository.QuestionRepository;
+import com.francislainy.so.backend.repository.UserRepository;
 import com.francislainy.so.backend.service.QuestionCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto) {
 
@@ -26,15 +30,14 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
         questionEntity.setId(UUID.randomUUID());
         questionEntity.setTitle(questionCreateDto.getTitle());
         questionEntity.setDescription(questionCreateDto.getDescription());
-        questionEntity.setTotalVotes(0);
-        questionEntity.setTotalUpVotes(0);
-        questionEntity.setTotalDownVotes(0);
         questionEntity.setDescription(questionCreateDto.getDescription());
 
         ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("Europe/Dublin"));
         Timestamp timestamp = Timestamp.valueOf(zdt.toLocalDateTime());
-
         questionEntity.setCreationDate(timestamp.getTime());
+
+        UserEntity userEntity = userRepository.findById(questionCreateDto.getUserId()).get();
+        questionEntity.setUserEntity(userEntity);
 
         questionRepository.save(questionEntity);
 
@@ -66,7 +69,7 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
 
             questionEntity.setTotalVotes(questionEntity.getTotalUpVotes() - questionEntity.getTotalDownVotes());
 
-            return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getTotalDownVotes(), questionEntity.getTotalUpVotes(), questionEntity.getTotalVotes());
+            return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getCreationDate(), questionEntity.getDescription(), questionEntity.getUserEntity().getUser_id());
 
         } else {
             return null;

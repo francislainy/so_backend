@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @CrossOrigin
-@RequestMapping("/api/so/question")
+@RequestMapping("/api/so/questions")
 @RestController
 public class QuestionQueryController {
 
