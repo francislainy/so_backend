@@ -9,7 +9,7 @@ import java.util.UUID;
 @Service
 public interface QuestionQueryService {
 
-    QuestionQueryDto getQuestionItem(UUID id);
+    QuestionQueryDto getQuestionItem(UUID userId, UUID id);
 
-    List<QuestionQueryDto> getQuestionList();
+    List<QuestionQueryDto> getQuestionList(UUID userId);
 }

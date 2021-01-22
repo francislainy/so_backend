@@ -21,21 +21,21 @@ public class QuestionQueryController {
     @Autowired
     private QuestionQueryService questionQueryService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<QuestionQueryDto>> getAllQuestions() {
+    public Map<String, List<QuestionQueryDto>> getAllQuestions(@RequestHeader(value = "authorization") UUID userId) {
 
         Map result = new HashMap();
-        result.put("questions", questionQueryService.getQuestionList());
+        result.put("questions", questionQueryService.getQuestionList(userId));
         return result;
 
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<QuestionQueryDto> getQuestionItem(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
 
-        return new ResponseEntity<>(questionQueryService.getQuestionItem(id), HttpStatus.OK);
+        return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
 
     }
 

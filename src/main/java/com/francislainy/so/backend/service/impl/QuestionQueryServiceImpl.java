@@ -18,27 +18,41 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
     private QuestionRepository questionRepository;
 
     @Override
-    public QuestionQueryDto getQuestionItem(UUID id) {
-        if (questionRepository.findById(id).isPresent()) {
-            QuestionEntity question = questionRepository.findById(id).get();
+    public QuestionQueryDto getQuestionItem(UUID userId, UUID id) {
 
-            return new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated());
+        if (questionRepository.findById(id).get().getUserEntity().getUser_id().equals(userId)) {
 
+            if (questionRepository.findById(id).isPresent()) {
+                QuestionEntity question = questionRepository.findById(id).get();
+
+                return new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated());
+
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            return null; //todo: return 403 if not valid user
         }
 
     }
 
     @Override
-    public List<QuestionQueryDto> getQuestionList() {
+    public List<QuestionQueryDto> getQuestionList(UUID userId) {
 
         List<QuestionQueryDto> questionList = new ArrayList<>();
 
         questionRepository.findAll().forEach(question -> {
-            questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated()));
+
+            if (question.getUserEntity().getUser_id().equals(userId)) {
+
+                questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated()));
+
+            }
+
         });
 
-        return questionList;
+        return questionList; //todo: return 403 if not valid user
     }
+
+
 }

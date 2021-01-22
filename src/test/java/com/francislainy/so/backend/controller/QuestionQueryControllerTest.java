@@ -38,7 +38,8 @@ public class QuestionQueryControllerTest {
 
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/api/so/questions")
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("authorization", UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"));
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().isOk())
@@ -53,14 +54,15 @@ public class QuestionQueryControllerTest {
 
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/api/so/questions")
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("authorization", UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"));
 
         QuestionQueryDto question = new QuestionQueryDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "Question17d55", 1606106807178L);
 
         List<QuestionQueryDto> allQuestions = Arrays.asList(question);
 
-        given(service.getQuestionList()).willReturn(allQuestions);
+        given(service.getQuestionList(UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"))).willReturn(allQuestions);
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().isOk())
@@ -86,7 +88,8 @@ public class QuestionQueryControllerTest {
 
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/api/so/questions")
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("authorization", UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"));
 
         QuestionQueryDto question1 = new QuestionQueryDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "Question17d55", 1606106807178L);
@@ -101,7 +104,7 @@ public class QuestionQueryControllerTest {
         List<QuestionQueryDto> allQuestions = Arrays.asList(question1, question2, question3);
 
 
-        given(service.getQuestionList()).willReturn(allQuestions);
+        given(service.getQuestionList(UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"))).willReturn(allQuestions);
 
 
         MvcResult result = mvc.perform(request)
