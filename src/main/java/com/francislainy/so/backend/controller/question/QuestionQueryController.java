@@ -25,12 +25,22 @@ public class QuestionQueryController {
     @ResponseStatus(HttpStatus.OK)
     public Object getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
 
+        Map result = new HashMap();
+        result.put("questions", questionQueryService.getQuestionList(userId));
+        return result;
+
+    }
+
+    @GetMapping(value = "/my", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Object getAllMyQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
+
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             Map result = new HashMap();
-            result.put("questions", questionQueryService.getQuestionList(userId));
+            result.put("questions", questionQueryService.getMyQuestionList(userId));
             return result;
         }
     }
@@ -39,12 +49,19 @@ public class QuestionQueryController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
 
-        if (userId == null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        } else {
-            return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
-        }
+        return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
 
     }
 
+    @GetMapping(value = "/{id}/my", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<QuestionQueryDto> getMyQuestionItem(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
+
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(questionQueryService.getMyQuestionItem(userId, id), HttpStatus.OK);
+        }
+
+    }
 }

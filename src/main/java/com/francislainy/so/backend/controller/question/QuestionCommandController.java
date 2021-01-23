@@ -25,7 +25,7 @@ public class QuestionCommandController {
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            return new ResponseEntity<>(questionCommandService.createQuestion(questionCreateDto, userId), HttpStatus.CREATED);
+            return new ResponseEntity<>(questionCommandService.createQuestion(userId, questionCreateDto), HttpStatus.CREATED);
         }
     }
 
@@ -37,7 +37,7 @@ public class QuestionCommandController {
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            questionCommandService.deleteQuestion(id);
+            questionCommandService.deleteQuestion(userId, id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

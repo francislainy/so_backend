@@ -11,5 +11,9 @@ public interface QuestionQueryService {
 
     QuestionQueryDto getQuestionItem(UUID userId, UUID id);
 
+    QuestionQueryDto getMyQuestionItem(UUID userId, UUID id);
+
     List<QuestionQueryDto> getQuestionList(UUID userId);
+
+    List<QuestionQueryDto> getMyQuestionList(UUID userId);
 }

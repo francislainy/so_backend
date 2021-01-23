@@ -20,6 +20,19 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
     @Override
     public QuestionQueryDto getQuestionItem(UUID userId, UUID id) {
 
+        if (questionRepository.findById(id).isPresent()) {
+            QuestionEntity question = questionRepository.findById(id).get();
+
+            return new QuestionQueryDto(question.getUserEntity().getUser_id(), question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated());
+
+        } else {
+            return null;
+        }
+
+    }
+
+    @Override
+    public QuestionQueryDto getMyQuestionItem(UUID userId, UUID id) { // todo: I think we may not need this controller - 23/01/2020
         if (questionRepository.findById(id).get().getUserEntity().getUser_id().equals(userId)) {
 
             if (questionRepository.findById(id).isPresent()) {
@@ -31,13 +44,12 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
                 return null;
             }
         } else {
-            return null; //todo: return 403 if not valid user
+            return null; // todo: return 403 if not valid user - 23/01/2020
         }
-
     }
 
     @Override
-    public List<QuestionQueryDto> getQuestionList(UUID userId) {
+    public List<QuestionQueryDto> getMyQuestionList(UUID userId) {
 
         List<QuestionQueryDto> questionList = new ArrayList<>();
 
@@ -51,8 +63,20 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
         });
 
-        return questionList; //todo: return 403 if not valid user
+        return questionList;
     }
 
+    @Override
+    public List<QuestionQueryDto> getQuestionList(UUID userId) {
+        List<QuestionQueryDto> questionList = new ArrayList<>();
+
+        questionRepository.findAll().forEach(question -> {
+
+            questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated()));
+
+        });
+
+        return questionList;
+    }
 
 }

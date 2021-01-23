@@ -24,7 +24,7 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     private UserRepository userRepository;
 
     @Override
-    public QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId) {
+    public QuestionCreateDto createQuestion(UUID userId, QuestionCreateDto questionCreateDto) {
 
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setTitle(questionCreateDto.getTitle());
@@ -77,15 +77,19 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     }
 
     @Override
-    public void deleteQuestion(UUID id) {
+    public void deleteQuestion(UUID userId, UUID id) {
 
-        if (questionRepository.findById(id).isPresent()) {
+        if (questionRepository.findById(id).get().getUserEntity().getUser_id().equals(userId)) {
 
-            QuestionEntity questionEntity = questionRepository.findById(id).get();
+            if (questionRepository.findById(id).isPresent()) {
 
-            questionRepository.delete(questionEntity);
+                QuestionEntity questionEntity = questionRepository.findById(id).get();
 
+                questionRepository.delete(questionEntity);
+
+            }
         }
+
     }
 
 }

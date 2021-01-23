@@ -8,10 +8,10 @@ import java.util.UUID;
 @Service
 public interface QuestionCommandService {
 
-    QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId);
+    QuestionCreateDto createQuestion(UUID userId, QuestionCreateDto questionCreateDto);
 
     QuestionCreateDto voteQuestion(UUID questionId, Integer voteType);
 
-    void deleteQuestion(UUID id);
+    void deleteQuestion(UUID userId, UUID id);
 
 }

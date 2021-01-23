@@ -9,6 +9,7 @@ import java.util.UUID;
 @Data
 public class QuestionQueryDto {
 
+    private UUID userId;
     private UUID id;
     private String title;
     private String description;
@@ -25,7 +26,6 @@ public class QuestionQueryDto {
         this.creationDate = creationDate;
     }
 
-
     public QuestionQueryDto(UUID id, String title, String description, Long creationDate, Long lastUpdated) {
 
         this.id = id;
@@ -35,4 +35,13 @@ public class QuestionQueryDto {
         this.lastUpdated = lastUpdated;
     }
 
+    public QuestionQueryDto(UUID userId, UUID id, String title, String description, Long creationDate, Long lastUpdated) {
+
+        this.userId = userId;
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.lastUpdated = lastUpdated;
+    }
 }
