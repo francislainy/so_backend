@@ -43,7 +43,8 @@ public class QuestionCommandControllerTest {
                         "            \"title\": \"myTitle\",\n" +
                         "            \"creationDate\": 1606106807178\n" +
                         "}")
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("authorization", UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"));
 
         QuestionCreateDto question = new QuestionCreateDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "myTitle", 1606106807178L);
@@ -76,7 +77,8 @@ public class QuestionCommandControllerTest {
                 .post("/api/so/questions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonStringBodyParams)
-                .accept(MediaType.APPLICATION_JSON);
+                .accept(MediaType.APPLICATION_JSON)
+                .header("authorization", UUID.fromString("85514581-cc50-4490-8612-6a288842ff6"));
 
         QuestionCreateDto questionResponse = new QuestionCreateDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "myTitle", 1606106807178L, "desc", UUID.fromString("e88d7cd3-3e9c-4113-a19a-f3907bf8b6d0"));

@@ -8,8 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,21 +21,30 @@ public class QuestionQueryController {
     @Autowired
     private QuestionQueryService questionQueryService;
 
-    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, List<QuestionQueryDto>> getAllQuestions(@RequestHeader(value = "authorization") UUID userId) {
+    public Object getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) {
 
-        Map result = new HashMap();
-        result.put("questions", questionQueryService.getQuestionList(userId));
-        return result;
-
+        if (userId == null) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+        }
+        else {
+            Map result = new HashMap();
+            result.put("questions", questionQueryService.getQuestionList(userId));
+            return result;
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
+    public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
 
-        return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
+        if (userId == null) {
+            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
+        }
 
     }
 

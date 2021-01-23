@@ -20,8 +20,13 @@ public class QuestionCommandController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<QuestionCreateDto> createQuestion(@RequestBody QuestionCreateDto questionCreateDto) {
-        return new ResponseEntity<>(questionCommandService.createQuestion(questionCreateDto), HttpStatus.CREATED);
+    public ResponseEntity<QuestionCreateDto> createQuestion(@RequestHeader(required = false, value = "authorization") UUID userId, @RequestBody QuestionCreateDto questionCreateDto) {
+
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(questionCommandService.createQuestion(questionCreateDto), HttpStatus.CREATED);
+        }
     }
 
     @PostMapping(value = "/{id}/vote/{voteType}", produces = MediaType.APPLICATION_JSON_VALUE)
