@@ -27,9 +27,8 @@ public class QuestionQueryController {
 
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
-        }
-        else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
             Map result = new HashMap();
             result.put("questions", questionQueryService.getQuestionList(userId));
             return result;
@@ -41,7 +40,7 @@ public class QuestionQueryController {
     public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
 
         if (userId == null) {
-            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
             return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
         }

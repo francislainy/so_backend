@@ -25,7 +25,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
             if (questionRepository.findById(id).isPresent()) {
                 QuestionEntity question = questionRepository.findById(id).get();
 
-                return new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated());
+                return new QuestionQueryDto(question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated());
 
             } else {
                 return null;
@@ -45,7 +45,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
             if (question.getUserEntity().getUser_id().equals(userId)) {
 
-                questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getCreationDate(), question.getLastUpdated()));
+                questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated()));
 
             }
 
