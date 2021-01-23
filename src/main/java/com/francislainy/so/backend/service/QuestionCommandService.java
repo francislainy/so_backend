@@ -9,6 +9,9 @@ import java.util.UUID;
 public interface QuestionCommandService {
 
     QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId);
+
     QuestionCreateDto voteQuestion(UUID questionId, Integer voteType);
+
+    void deleteQuestion(UUID id);
 
 }

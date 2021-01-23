@@ -29,6 +29,20 @@ public class QuestionCommandController {
         }
     }
 
+
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity deleteQuestion(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
+
+        if (userId == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            questionCommandService.deleteQuestion(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+
     @PostMapping(value = "/{id}/vote/{voteType}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<QuestionCreateDto> upvoteQuestion(@PathVariable(value = "id") UUID id, @PathVariable(value = "voteType") Integer voteType) {

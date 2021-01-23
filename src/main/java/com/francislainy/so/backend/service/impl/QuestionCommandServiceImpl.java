@@ -27,7 +27,6 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     public QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId) {
 
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setId(UUID.randomUUID());
         questionEntity.setTitle(questionCreateDto.getTitle());
         questionEntity.setDescription(questionCreateDto.getDescription());
 
@@ -35,8 +34,10 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
         Timestamp timestamp = Timestamp.valueOf(zdt.toLocalDateTime());
         questionEntity.setCreationDate(timestamp.getTime());
 
-        UserEntity userEntity = userRepository.findById(userId).get();
-        questionEntity.setUserEntity(userEntity);
+        if (userRepository.findById(userId).isPresent()) {
+            UserEntity userEntity = userRepository.findById(userId).get();
+            questionEntity.setUserEntity(userEntity);
+        }
 
         questionRepository.save(questionEntity);
 
@@ -72,6 +73,18 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
 
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void deleteQuestion(UUID id) {
+
+        if (questionRepository.findById(id).isPresent()) {
+
+            QuestionEntity questionEntity = questionRepository.findById(id).get();
+
+            questionRepository.delete(questionEntity);
+
         }
     }
 

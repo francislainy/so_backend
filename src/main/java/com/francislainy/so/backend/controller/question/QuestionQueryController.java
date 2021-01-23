@@ -23,7 +23,7 @@ public class QuestionQueryController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) {
+    public Object getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
 
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
