@@ -8,7 +8,7 @@ import java.util.UUID;
 @Service
 public interface QuestionCommandService {
 
-    QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto);
+    QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId);
     QuestionCreateDto voteQuestion(UUID questionId, Integer voteType);
 
 }

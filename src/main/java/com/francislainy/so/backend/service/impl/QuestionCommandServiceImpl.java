@@ -24,19 +24,18 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     private UserRepository userRepository;
 
     @Override
-    public QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto) {
+    public QuestionCreateDto createQuestion(QuestionCreateDto questionCreateDto, UUID userId) {
 
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setId(UUID.randomUUID());
         questionEntity.setTitle(questionCreateDto.getTitle());
-        questionEntity.setDescription(questionCreateDto.getDescription());
         questionEntity.setDescription(questionCreateDto.getDescription());
 
         ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("Europe/Dublin"));
         Timestamp timestamp = Timestamp.valueOf(zdt.toLocalDateTime());
         questionEntity.setCreationDate(timestamp.getTime());
 
-        UserEntity userEntity = userRepository.findById(questionCreateDto.getUserId()).get();
+        UserEntity userEntity = userRepository.findById(userId).get();
         questionEntity.setUserEntity(userEntity);
 
         questionRepository.save(questionEntity);

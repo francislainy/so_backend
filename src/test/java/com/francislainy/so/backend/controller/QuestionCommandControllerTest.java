@@ -49,7 +49,7 @@ public class QuestionCommandControllerTest {
         QuestionCreateDto question = new QuestionCreateDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "myTitle", 1606106807178L);
 
-        given(commandService.createQuestion(Mockito.any(QuestionCreateDto.class))).willReturn(question);
+        given(commandService.createQuestion(Mockito.any(QuestionCreateDto.class), Mockito.any(UUID.class))).willReturn(question);
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().is2xxSuccessful())
@@ -68,8 +68,7 @@ public class QuestionCommandControllerTest {
     public void postOneQuestionJson() throws Exception {
 
         QuestionCreateDto questionPostBodyParams = new QuestionCreateDto(
-                "myTitle", 1606106807178L,  "my post",
-                UUID.fromString("85514581-cc50-4490-8612-6a288842ff64"));
+                "myTitle", 1606106807178L,  "my post");
 
         String jsonStringBodyParams = asJsonString(questionPostBodyParams);
 
@@ -85,7 +84,7 @@ public class QuestionCommandControllerTest {
 
         String jsonStringResponse = asJsonString(questionResponse);
 
-        given(commandService.createQuestion(Mockito.any(QuestionCreateDto.class))).willReturn(questionResponse);
+        given(commandService.createQuestion(Mockito.any(QuestionCreateDto.class), Mockito.any(UUID.class))).willReturn(questionResponse);
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().is2xxSuccessful())

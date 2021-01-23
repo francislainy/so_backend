@@ -25,7 +25,7 @@ public class QuestionCommandController {
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            return new ResponseEntity<>(questionCommandService.createQuestion(questionCreateDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(questionCommandService.createQuestion(questionCreateDto, userId), HttpStatus.CREATED);
         }
     }
 
