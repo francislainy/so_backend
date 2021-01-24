@@ -1,7 +1,9 @@
 package com.francislainy.so.backend.controller.question;
 
 import com.francislainy.so.backend.dto.QuestionCreateDto;
+import com.francislainy.so.backend.dto.QuestionQueryDto;
 import com.francislainy.so.backend.service.QuestionCommandService;
+import com.francislainy.so.backend.service.QuestionQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,9 @@ public class QuestionCommandController {
     @Autowired
     private QuestionCommandService questionCommandService;
 
+    @Autowired
+    private QuestionQueryService questionQueryService;
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<QuestionCreateDto> createQuestion(@RequestHeader(required = false, value = "authorization") UUID userId, @RequestBody QuestionCreateDto questionCreateDto) {
@@ -32,13 +37,19 @@ public class QuestionCommandController {
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity deleteQuestion(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
+    public ResponseEntity<QuestionCreateDto> deleteQuestion(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
 
         if (userId == null) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
-            questionCommandService.deleteQuestion(userId, id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            QuestionQueryDto questionQueryDto = questionQueryService.getQuestionItem(userId, id);
+
+            if (questionQueryDto == null) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                questionCommandService.deleteQuestion(userId, id);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
     }
 

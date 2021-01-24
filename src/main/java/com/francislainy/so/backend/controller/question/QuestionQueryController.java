@@ -23,17 +23,16 @@ public class QuestionQueryController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
+    public ResponseEntity getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
 
         Map result = new HashMap();
         result.put("questions", questionQueryService.getQuestionList(userId));
-        return result;
-
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping(value = "/my", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public Object getAllMyQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
+    public ResponseEntity getAllMyQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
 
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -41,7 +40,7 @@ public class QuestionQueryController {
         } else {
             Map result = new HashMap();
             result.put("questions", questionQueryService.getMyQuestionList(userId));
-            return result;
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
