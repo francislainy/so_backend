@@ -2,8 +2,10 @@ package com.francislainy.so.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.francislainy.so.backend.controller.question.QuestionCommandController;
-import com.francislainy.so.backend.dto.QuestionCreateDto;
-import com.francislainy.so.backend.service.QuestionCommandService;
+import com.francislainy.so.backend.dto.question.QuestionCreateDto;
+import com.francislainy.so.backend.service.question.QuestionCommandService;
+import com.francislainy.so.backend.service.question.QuestionQueryService;
+//import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -22,6 +24,10 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * mvn -Dtest=com.francislainy.so.backend.controller.*Test test
+ */
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(QuestionCommandController.class)
 public class QuestionCommandControllerTest {
@@ -30,8 +36,10 @@ public class QuestionCommandControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private QuestionCommandService commandService;
+    private QuestionCommandService questionCommandService;
 
+    @MockBean
+    private QuestionQueryService questionQueryService;
 
     @Test
     public void postOneQuestion() throws Exception {
@@ -49,7 +57,7 @@ public class QuestionCommandControllerTest {
         QuestionCreateDto question = new QuestionCreateDto(UUID.fromString("c974f737-eb25-475c-871f-822540e85fd6"),
                 "myTitle", 1606106807178L);
 
-        given(commandService.createQuestion(Mockito.any(UUID.class), Mockito.any(QuestionCreateDto.class))).willReturn(question);
+        given(questionCommandService.createQuestion(Mockito.any(UUID.class), Mockito.any(QuestionCreateDto.class))).willReturn(question);
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().is2xxSuccessful())
@@ -84,7 +92,7 @@ public class QuestionCommandControllerTest {
 
         String jsonStringResponse = asJsonString(questionResponse);
 
-        given(commandService.createQuestion(Mockito.any(UUID.class), Mockito.any(QuestionCreateDto.class))).willReturn(questionResponse);
+        given(questionCommandService.createQuestion(Mockito.any(UUID.class), Mockito.any(QuestionCreateDto.class))).willReturn(questionResponse);
 
         MvcResult result = mvc.perform(request)
                 .andExpect(status().is2xxSuccessful())

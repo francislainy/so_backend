@@ -1,7 +1,7 @@
 package com.francislainy.so.backend.controller.question;
 
-import com.francislainy.so.backend.dto.QuestionQueryDto;
-import com.francislainy.so.backend.service.QuestionQueryService;
+import com.francislainy.so.backend.dto.question.QuestionQueryDto;
+import com.francislainy.so.backend.service.question.QuestionQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,18 +21,20 @@ public class QuestionQueryController {
     @Autowired
     private QuestionQueryService questionQueryService;
 
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
+    public ResponseEntity getAllQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) {
 
         Map result = new HashMap();
         result.put("questions", questionQueryService.getQuestionList(userId));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
     @GetMapping(value = "/my", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity getAllMyQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) { //todo: separate between all questions and all my questions
+    public ResponseEntity getAllMyQuestions(@RequestHeader(required = false, value = "authorization") UUID userId, HttpServletResponse response) {
 
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -44,6 +46,7 @@ public class QuestionQueryController {
         }
     }
 
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<QuestionQueryDto> getQuestionItem(@RequestHeader(required = false, value = "authorization") UUID userId, @PathVariable(value = "id") UUID id) {
@@ -51,6 +54,7 @@ public class QuestionQueryController {
         return new ResponseEntity<>(questionQueryService.getQuestionItem(userId, id), HttpStatus.OK);
 
     }
+
 
     @GetMapping(value = "/{id}/my", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)

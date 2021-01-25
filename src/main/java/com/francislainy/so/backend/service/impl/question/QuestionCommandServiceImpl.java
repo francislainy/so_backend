@@ -1,11 +1,11 @@
-package com.francislainy.so.backend.service.impl;
+package com.francislainy.so.backend.service.impl.question;
 
-import com.francislainy.so.backend.dto.QuestionCreateDto;
-import com.francislainy.so.backend.entity.QuestionEntity;
-import com.francislainy.so.backend.entity.UserEntity;
-import com.francislainy.so.backend.repository.QuestionRepository;
-import com.francislainy.so.backend.repository.UserRepository;
-import com.francislainy.so.backend.service.QuestionCommandService;
+import com.francislainy.so.backend.dto.question.QuestionCreateDto;
+import com.francislainy.so.backend.entity.question.QuestionEntity;
+import com.francislainy.so.backend.entity.user.UserEntity;
+import com.francislainy.so.backend.repository.question.QuestionRepository;
+import com.francislainy.so.backend.repository.user.UserRepository;
+import com.francislainy.so.backend.service.question.QuestionCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +69,7 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
 
             questionEntity.setTotalVotes(questionEntity.getTotalUpVotes() - questionEntity.getTotalDownVotes());
 
-            return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getCreationDate(), questionEntity.getDescription(), questionEntity.getUserEntity().getUser_id());
+            return new QuestionCreateDto(questionEntity.getId(), questionEntity.getTitle(), questionEntity.getCreationDate(), questionEntity.getDescription(), questionEntity.getUserEntity().getId());
 
         } else {
             return null;
@@ -79,7 +79,7 @@ public class QuestionCommandServiceImpl implements QuestionCommandService {
     @Override
     public void deleteQuestion(UUID userId, UUID id) {
 
-        if (questionRepository.findById(id).get().getUserEntity().getUser_id().equals(userId)) {
+        if (questionRepository.findById(id).get().getUserEntity().getId().equals(userId)) {
 
             if (questionRepository.findById(id).isPresent()) {
 

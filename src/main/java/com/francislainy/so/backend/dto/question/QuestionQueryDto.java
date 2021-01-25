@@ -1,4 +1,4 @@
-package com.francislainy.so.backend.dto;
+package com.francislainy.so.backend.dto.question;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

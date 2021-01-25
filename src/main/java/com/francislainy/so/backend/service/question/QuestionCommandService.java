@@ -1,6 +1,6 @@
-package com.francislainy.so.backend.service;
+package com.francislainy.so.backend.service.question;
 
-import com.francislainy.so.backend.dto.QuestionCreateDto;
+import com.francislainy.so.backend.dto.question.QuestionCreateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

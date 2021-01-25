@@ -1,8 +1,8 @@
 package com.francislainy.so.backend.controller;
 
 import com.francislainy.so.backend.controller.question.QuestionQueryController;
-import com.francislainy.so.backend.dto.QuestionQueryDto;
-import com.francislainy.so.backend.service.QuestionQueryService;
+import com.francislainy.so.backend.dto.question.QuestionQueryDto;
+import com.francislainy.so.backend.service.question.QuestionQueryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,10 @@ import java.util.UUID;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+/**
+ * mvn -Dtest=com.francislainy.so.backend.controller.*Test test
+ */
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(QuestionQueryController.class)

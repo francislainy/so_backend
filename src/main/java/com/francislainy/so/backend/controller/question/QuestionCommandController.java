@@ -1,9 +1,9 @@
 package com.francislainy.so.backend.controller.question;
 
-import com.francislainy.so.backend.dto.QuestionCreateDto;
-import com.francislainy.so.backend.dto.QuestionQueryDto;
-import com.francislainy.so.backend.service.QuestionCommandService;
-import com.francislainy.so.backend.service.QuestionQueryService;
+import com.francislainy.so.backend.dto.question.QuestionCreateDto;
+import com.francislainy.so.backend.dto.question.QuestionQueryDto;
+import com.francislainy.so.backend.service.question.QuestionCommandService;
+import com.francislainy.so.backend.service.question.QuestionQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

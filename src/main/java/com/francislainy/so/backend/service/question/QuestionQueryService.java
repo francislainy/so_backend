@@ -1,6 +1,6 @@
-package com.francislainy.so.backend.service;
+package com.francislainy.so.backend.service.question;
 
-import com.francislainy.so.backend.dto.QuestionQueryDto;
+import com.francislainy.so.backend.dto.question.QuestionQueryDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

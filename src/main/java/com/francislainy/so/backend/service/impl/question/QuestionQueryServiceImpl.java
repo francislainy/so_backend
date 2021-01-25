@@ -1,9 +1,9 @@
-package com.francislainy.so.backend.service.impl;
+package com.francislainy.so.backend.service.impl.question;
 
-import com.francislainy.so.backend.dto.QuestionQueryDto;
-import com.francislainy.so.backend.entity.QuestionEntity;
-import com.francislainy.so.backend.repository.QuestionRepository;
-import com.francislainy.so.backend.service.QuestionQueryService;
+import com.francislainy.so.backend.dto.question.QuestionQueryDto;
+import com.francislainy.so.backend.entity.question.QuestionEntity;
+import com.francislainy.so.backend.repository.question.QuestionRepository;
+import com.francislainy.so.backend.service.question.QuestionQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
         if (questionRepository.findById(id).isPresent()) {
             QuestionEntity question = questionRepository.findById(id).get();
 
-            return new QuestionQueryDto(question.getUserEntity().getUser_id(), question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated());
+            return new QuestionQueryDto(question.getUserEntity().getId(), question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated());
 
         } else {
             return null;
@@ -33,7 +33,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
     @Override
     public QuestionQueryDto getMyQuestionItem(UUID userId, UUID id) { // todo: I think we may not need this controller - 23/01/2020
-        if (questionRepository.findById(id).get().getUserEntity().getUser_id().equals(userId)) {
+        if (questionRepository.findById(id).get().getUserEntity().getId().equals(userId)) {
 
             if (questionRepository.findById(id).isPresent()) {
                 QuestionEntity question = questionRepository.findById(id).get();
@@ -55,7 +55,7 @@ public class QuestionQueryServiceImpl implements QuestionQueryService {
 
         questionRepository.findAll().forEach(question -> {
 
-            if (question.getUserEntity().getUser_id().equals(userId)) {
+            if (question.getUserEntity().getId().equals(userId)) {
 
                 questionList.add(new QuestionQueryDto(question.getId(), question.getTitle(), question.getDescription(), question.getCreationDate(), question.getLastUpdated()));
 
