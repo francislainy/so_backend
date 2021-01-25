@@ -1,11 +1,9 @@
-package com.francislainy.so.backend.controller;
+package com.francislainy.so.backend.controller.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.francislainy.so.backend.controller.question.QuestionCommandController;
 import com.francislainy.so.backend.dto.question.QuestionCreateDto;
 import com.francislainy.so.backend.service.question.QuestionCommandService;
 import com.francislainy.so.backend.service.question.QuestionQueryService;
-//import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

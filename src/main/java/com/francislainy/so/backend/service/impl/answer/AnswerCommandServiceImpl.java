@@ -33,7 +33,7 @@ public class AnswerCommandServiceImpl implements AnswerCommandService {
 
         AnswerEntity answerEntity = new AnswerEntity();
 
-        answerEntity.setDescription(answerCreateDto.getDescription());
+        answerEntity.setContent(answerCreateDto.getContent());
         ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("Europe/Dublin"));
         Timestamp timestamp = Timestamp.valueOf(zdt.toLocalDateTime());
         answerEntity.setCreationDate(timestamp.getTime());
@@ -54,7 +54,7 @@ public class AnswerCommandServiceImpl implements AnswerCommandService {
 
         answerRepository.save(answerEntity);
 
-        return new AnswerCreateDto(answerEntity.getId(), answerEntity.getCreationDate(), answerEntity.getDescription(), newQuestionEntity);
+        return new AnswerCreateDto(answerEntity.getId(), answerEntity.getCreationDate(), answerEntity.getContent(), newQuestionEntity);
     }
 
 }

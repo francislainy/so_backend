@@ -15,16 +15,16 @@ public class AnswerCreateDto {
 
     private UUID id;
     private Long creationDate;
-    private String description;
+    private String content;
     private UUID userId;
 
     @SerializedName("question")
     private QuestionEntity questionEntity;
 
-    public AnswerCreateDto(UUID id, Long creationDate, String description, QuestionEntity questionEntity) {
+    public AnswerCreateDto(UUID id, Long creationDate, String content, QuestionEntity questionEntity) {
         this.id = id;
         this.creationDate = creationDate;
-        this.description = description;
+        this.content = content;
         this.questionEntity = questionEntity;
     }
 

@@ -20,8 +20,8 @@ public class AnswerEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "content", nullable = false)
+    private String content;
 
     @Column(name = "creation_date", nullable = false)
     private Long creationDate;
