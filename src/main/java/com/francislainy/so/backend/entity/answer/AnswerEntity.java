@@ -2,9 +2,7 @@ package com.francislainy.so.backend.entity.answer;
 
 import com.francislainy.so.backend.entity.question.QuestionEntity;
 import com.francislainy.so.backend.entity.user.UserEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -13,7 +11,9 @@ import java.util.UUID;
 @Table(name = "answer")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class AnswerEntity {
 
     @Id

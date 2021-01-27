@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.francislainy.so.backend.dto.question.QuestionCreateDto;
 import com.francislainy.so.backend.service.question.QuestionCommandService;
 import com.francislainy.so.backend.service.question.QuestionQueryService;
+import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;

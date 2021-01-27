@@ -2,9 +2,7 @@ package com.francislainy.so.backend.entity.user;
 
 import com.francislainy.so.backend.entity.answer.AnswerEntity;
 import com.francislainy.so.backend.entity.question.QuestionEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +13,9 @@ import java.util.UUID;
 @Table(name = "user_profile")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class UserEntity {
 
     @Id

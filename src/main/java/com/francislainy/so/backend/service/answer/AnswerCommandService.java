@@ -10,4 +10,5 @@ public interface AnswerCommandService {
 
     AnswerCreateDto createAnswer(UUID userId, UUID questionId, AnswerCreateDto answerCreateDto);
 
+    void deleteAnswer(UUID userId, UUID id);
 }

@@ -2,6 +2,7 @@ package com.francislainy.so.backend.dto.answer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.francislainy.so.backend.entity.question.QuestionEntity;
+import com.francislainy.so.backend.entity.user.UserEntity;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AnswerCreateDto {
+public class AnswerQueryDto {
 
     private UUID id;
     private Long creationDate;
@@ -23,19 +24,24 @@ public class AnswerCreateDto {
     @JsonProperty("question")
     private QuestionEntity questionEntity;
 
-    public AnswerCreateDto(UUID id, Long creationDate, String content, QuestionEntity questionEntity) {
+    @SerializedName("user")
+    @JsonProperty("user")
+    private UserEntity userEntity;
+
+    public AnswerQueryDto(UUID id, Long creationDate, String content, QuestionEntity questionEntity, UserEntity userEntity) {
         this.id = id;
         this.creationDate = creationDate;
         this.content = content;
         this.questionEntity = questionEntity;
+        this.userEntity = userEntity;
     }
 
-    public AnswerCreateDto(Long creationDate, String content) {
+    public AnswerQueryDto(Long creationDate, String content) {
         this.creationDate = creationDate;
         this.content = content;
     }
 
-    public AnswerCreateDto(String content) {
+    public AnswerQueryDto(String content) {
         this.content = content;
     }
 

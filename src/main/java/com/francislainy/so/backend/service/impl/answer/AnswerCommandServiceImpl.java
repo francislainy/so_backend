@@ -57,4 +57,20 @@ public class AnswerCommandServiceImpl implements AnswerCommandService {
         return new AnswerCreateDto(answerEntity.getId(), answerEntity.getCreationDate(), answerEntity.getContent(), newQuestionEntity);
     }
 
+
+    @Override
+    public void deleteAnswer(UUID userId, UUID id) {
+
+        if (answerRepository.findById(id).get().getUserEntity().getId().equals(userId)) {
+
+            if (answerRepository.findById(id).isPresent()) {
+
+                AnswerEntity answerEntity = answerRepository.findById(id).get();
+
+                answerRepository.delete(answerEntity);
+
+            }
+        }
+    }
+
 }
