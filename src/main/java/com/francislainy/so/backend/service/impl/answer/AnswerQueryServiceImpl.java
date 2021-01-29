@@ -61,7 +61,9 @@ public class AnswerQueryServiceImpl implements AnswerQueryService {
 
         answerRepository.findAll().forEach(answer -> {
 
-            if (answer.getUserEntity().getId().equals(userId)) {
+            UUID userIdAnswer = answer.getUserEntity().getId();
+
+            if (userIdAnswer.equals(userId)) {
                 QuestionEntity questionEntity = new QuestionEntity();
                 questionEntity.setId(answer.getQuestionEntity().getId());
                 UserEntity userEntity = new UserEntity(answer.getUserEntity().getId());
